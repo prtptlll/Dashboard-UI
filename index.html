@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SaaS Dashboard</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-gray-900 text-white hidden md:block">
+    <div class="p-5 text-xl font-bold border-b border-gray-800">
+      DashPro
+    </div>
+
+    <nav class="mt-5 space-y-1">
+
+      <a class="nav-item active">Dashboard</a>
+      <a class="nav-item">Analytics</a>
+      <a class="nav-item">Users</a>
+      <a class="nav-item">Settings</a>
+
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-6">
+
+    <!-- TOP BAR -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Dashboard</h1>
+
+      <div class="flex gap-2">
+        <button class="top-btn">Profile</button>
+        <button class="top-btn">Notifications</button>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+      <div class="card">Sales <strong>$12,400</strong></div>
+      <div class="card">Users <strong>1,240</strong></div>
+      <div class="card">Revenue <strong>$8,900</strong></div>
+      <div class="card">Orders <strong>320</strong></div>
+
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-box mt-6">
+      <h2 class="font-bold mb-4">Analytics Overview</h2>
+      <canvas id="chart"></canvas>
+    </div>
+
+    <!-- RECENT ACTIVITY (RESTORED) -->
+    <div class="bg-white mt-6 p-5 rounded-lg shadow">
+
+      <h2 class="font-bold mb-4">Recent Activity</h2>
+
+      <table class="w-full text-left">
+
+        <thead>
+          <tr class="border-b text-gray-600">
+            <th class="py-2">User</th>
+            <th>Action</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr class="border-b hover:bg-gray-50 transition cursor-pointer">
+            <td class="py-2">John</td>
+            <td>Purchased Plan</td>
+            <td class="text-green-500 font-medium">Success</td>
+          </tr>
+
+          <tr class="border-b hover:bg-gray-50 transition cursor-pointer">
+            <td class="py-2">Alice</td>
+            <td>Signed Up</td>
+            <td class="text-blue-500 font-medium">Active</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- STYLES -->
+<style>
+  .nav-item {
+    display: block;
+    padding: 10px 16px;
+    margin: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: #cbd5e1;
+  }
+
+  .nav-item:hover {
+    background: #1f2937;
+    color: white;
+  }
+
+  .nav-item.active {
+    background: #374151;
+    color: white;
+  }
+
+  .top-btn {
+    background: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .top-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+
+  .card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  }
+
+  .chart-box {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: 0.2s;
+  }
+
+  .chart-box:hover {
+    transform: scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+</style>
+
+<!-- JS -->
+<script>
+  // Sidebar click behavior (UI only)
+  const items = document.querySelectorAll(".nav-item");
+
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      items.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+    });
+  });
+
+  // Chart
+  const ctx = document.getElementById('chart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      datasets: [{
+        label: 'Sales',
+        data: [12, 19, 3, 5, 2, 8],
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        tension: 0.4,
+        fill: true
+      }]
+    }
+  });
+</script>
+
+</body>
+</html>
